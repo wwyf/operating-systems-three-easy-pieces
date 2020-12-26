@@ -45,7 +45,37 @@ def scrape_urls2():
     with open("./urls.txt", "w+") as f:
         for k in sorted(rslt.keys()):
             print(k, rslt[k], file=f)
+            
 
+def scrape_urls3():
+
+    # get page
+    bookurl = "http://pages.cs.wisc.edu/~remzi/OSTEP/#book-chapters"
+    resp = requests.get(bookurl)
+    soup = bs4.BeautifulSoup(resp.text, "html.parser")
+
+    # parse page
+    chapters = defaultdict(list)
+    chapter_base_url = "http://pages.cs.wisc.edu/~remzi/OSTEP/{}"
+    for table in soup.find_all("table"):
+        row_size = len(table)
+        if row_size < 20:
+            continue
+        for row in table.find_all("tr"):
+            current_column = 0
+            for column in row.find_all("td"):
+                chapter = column.find("a")
+                if chapter:
+                    chapters[current_column].append(
+                        chapter_base_url.format(chapter.attrs["href"]))
+                current_column = current_column + 1
+
+    sort_key = 100
+    with open("./urls.txt", "w+") as f:
+        for column in chapters:
+            for url in chapters[column]:
+                print(sort_key, url, file=f)
+                sort_key += 1
 
 def download_book():
     def download(i, url):
