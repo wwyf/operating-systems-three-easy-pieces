@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import os
-import pathlib
 import threading
 from pathlib import Path
+from typing import DefaultDict
 
 import bs4
 import requests
@@ -45,7 +44,7 @@ def scrape_urls2():
     with open("./urls.txt", "w+") as f:
         for k in sorted(rslt.keys()):
             print(k, rslt[k], file=f)
-            
+
 
 def scrape_urls3():
 
@@ -55,7 +54,7 @@ def scrape_urls3():
     soup = bs4.BeautifulSoup(resp.text, "html.parser")
 
     # parse page
-    chapters = defaultdict(list)
+    chapters = DefaultDict(list)
     chapter_base_url = "http://pages.cs.wisc.edu/~remzi/OSTEP/{}"
     for table in soup.find_all("table"):
         row_size = len(table)
@@ -76,6 +75,7 @@ def scrape_urls3():
             for url in chapters[column]:
                 print(sort_key, url, file=f)
                 sort_key += 1
+
 
 def download_book():
     def download(i, url):
@@ -116,7 +116,7 @@ def merge_pdf():
     for pdf in files:
         merger.append(open(pdf, "rb"))
 
-    with open("book.pdf", "wb") as fout:
+    with open("operating_system_three_easy_pieces.pdf", "wb") as fout:
         merger.write(fout)
 
 
@@ -128,8 +128,7 @@ def read_file():
 
 
 if __name__ == "__main__":
-    # scrape_urls2()
-    # download_book()
+    scrape_urls3()
+    download_book()
     merge_pdf()
     # read_file()
-
