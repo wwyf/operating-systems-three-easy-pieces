@@ -109,10 +109,6 @@ def download_book():
 def merge_pdf():
     output_dir = Path("./output")
     files = [file.resolve() for file in sorted(output_dir.glob("*.pdf"))]
-
-    files = files[-2:] + files[0:-2]
-
-    # print(files)
     merger = PdfFileMerger()
 
     for pdf in files:
