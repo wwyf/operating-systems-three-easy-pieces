@@ -86,6 +86,8 @@ def download_book():
         if res.ok:
             last_name = url.split("/")[-1]
             file_name = f"./output/{i}-{last_name}"
+            if not file_name.endswith(".pdf"):
+                file_name += ".pdf"
             print(f"{last_name}{file_name}")
             with open(f"{file_name}", "wb") as f:
                 f.write(res.content)
