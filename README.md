@@ -17,3 +17,7 @@ http://pages.cs.wisc.edu/~remzi/OSTEP/#book-chapters . And also it has latest ve
     ```cmd
     python book.py
     ```
+
+## Auto Update
+
+You can get the latest book from the [Action Artifacts](https://github.com/wwyf/operating-systems-three-easy-pieces/actions)
