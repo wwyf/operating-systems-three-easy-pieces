@@ -47,6 +47,7 @@ def scrape_urls2():
 
 
 def scrape_urls3():
+    print("scrape url !!")
 
     # get page
     bookurl = "http://pages.cs.wisc.edu/~remzi/OSTEP/#book-chapters"
@@ -73,11 +74,13 @@ def scrape_urls3():
     with open("./urls.txt", "w+") as f:
         for column in chapters:
             for url in chapters[column]:
+                print(sort_key, url)
                 print(sort_key, url, file=f)
                 sort_key += 1
 
 
 def download_book():
+    print("start download !!")
     def download(i, url):
         url = url.strip()
         print(f" {i} downloading {url}")
