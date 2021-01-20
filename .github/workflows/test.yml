@@ -1,8 +1,10 @@
 name: Get Latest OSTEP
 
-on: [push]
+on:
+  push:
+    branches: all
   schedule:
-    - cron: "0 0 /7 * *"
+    - cron: "0 0 */7 * *"
 
 jobs:
   build:
